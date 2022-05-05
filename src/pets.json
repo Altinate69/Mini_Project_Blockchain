@@ -1,130 +1,146 @@
 [
   {
     "id": 0,
-    "name": "Frieda",
-    "picture": "images/scottish-terrier.jpeg",
-    "age": 3,
-    "breed": "Scottish Terrier",
-    "location": "Lisco, Alabama"
+    "name": "Beluga",
+    "picture": "images/beluga.jpg",
+    "age": 18,
+    "breed": "Beluga",
+    "location": "Lisco, Alabama",
+    "price": 250
   },
   {
     "id": 1,
-    "name": "Gina",
-    "picture": "images/scottish-terrier.jpeg",
-    "age": 3,
-    "breed": "Scottish Terrier",
-    "location": "Tooleville, West Virginia"
+    "name": "John",
+    "picture": "images/black.jpg",
+    "age": 2,
+    "breed": "American Shorthair",
+    "location": "Tooleville, West Virginia",
+    "price": 100
   },
   {
     "id": 2,
-    "name": "Collins",
-    "picture": "images/french-bulldog.jpeg",
+    "name": "Jimmy",
+    "picture": "images/butter.jpg",
     "age": 2,
-    "breed": "French Bulldog",
-    "location": "Freeburn, Idaho"
+    "breed": "Butter Cat",
+    "location": "Freeburn, Idaho",
+    "price": 99
   },
   {
     "id": 3,
-    "name": "Melissa",
-    "picture": "images/boxer.jpeg",
+    "name": "Corners",
+    "picture": "images/corner.jpg",
     "age": 2,
-    "breed": "Boxer",
-    "location": "Camas, Pennsylvania"
+    "breed": "American Shorthair",
+    "location": "Camas, Pennsylvania",
+    "price": 135
   },
   {
     "id": 4,
-    "name": "Jeanine",
-    "picture": "images/french-bulldog.jpeg",
+    "name": "Jabby",
+    "picture": "images/croc.jpg",
     "age": 2,
-    "breed": "French Bulldog",
-    "location": "Gerber, South Dakota"
+    "breed": "American Shorthair",
+    "location": "Gerber, South Dakota",
+    "price": 220
   },
   {
     "id": 5,
-    "name": "Elvia",
-    "picture": "images/french-bulldog.jpeg",
+    "name": "Jerry",
+    "picture": "images/good.jpg",
     "age": 3,
-    "breed": "French Bulldog",
-    "location": "Innsbrook, Illinois"
+    "breed": "American Shorthair",
+    "location": "Innsbrook, Illinois",
+    "price": 69
   },
   {
     "id": 6,
-    "name": "Latisha",
-    "picture": "images/golden-retriever.jpeg",
-    "age": 3,
-    "breed": "Golden Retriever",
-    "location": "Soudan, Louisiana"
+    "name": "Stepan",
+    "picture": "images/mood.jpg",
+    "age": 14,
+    "breed": "Russian Blue",
+    "location": "Kharkiv, Ukraine",
+    "price": 299
   },
   {
     "id": 7,
-    "name": "Coleman",
-    "picture": "images/golden-retriever.jpeg",
-    "age": 3,
-    "breed": "Golden Retriever",
-    "location": "Jacksonwald, Palau"
+    "name": "Chadchat",
+    "picture": "images/muscle.jpg",
+    "age": 55,
+    "breed": "STRONGEST CAT",
+    "location": "Bangkok",
+    "price": 999
   },
   {
     "id": 8,
-    "name": "Nichole",
-    "picture": "images/french-bulldog.jpeg",
+    "name": "Nana",
+    "picture": "images/nana.jpg",
     "age": 2,
-    "breed": "French Bulldog",
-    "location": "Honolulu, Hawaii"
+    "breed": "British Shorthair",
+    "location": "Honolulu, Hawaii",
+    "price": 399
   },
   {
     "id": 9,
-    "name": "Fran",
-    "picture": "images/boxer.jpeg",
-    "age": 3,
-    "breed": "Boxer",
-    "location": "Matheny, Utah"
+    "name": "VOID",
+    "picture": "images/void.jpg",
+    "age": 99,
+    "breed": "Void Cat",
+    "location": "Void",
+    "price": 999
   },
   {
     "id": 10,
-    "name": "Leonor",
-    "picture": "images/boxer.jpeg",
+    "name": "Leon",
+    "picture": "images/sleepy.jpg",
     "age": 2,
-    "breed": "Boxer",
-    "location": "Tyhee, Indiana"
+    "breed": "Sleepy Cat",
+    "location": "Tyhee, Indiana",
+    "price": 10
   },
   {
     "id": 11,
-    "name": "Dean",
-    "picture": "images/scottish-terrier.jpeg",
+    "name": "Hanna",
+    "picture": "images/smol.jpg",
     "age": 3,
-    "breed": "Scottish Terrier",
-    "location": "Windsor, Montana"
+    "breed": "Smol Cat",
+    "location": "Windsor, Montana",
+    "price": 1
   },
   {
     "id": 12,
-    "name": "Stevenson",
-    "picture": "images/french-bulldog.jpeg",
-    "age": 3,
-    "breed": "French Bulldog",
-    "location": "Kingstowne, Nevada"
+    "name": "Smudge",
+    "picture": "images/smudge.jpg",
+    "age": 10,
+    "breed": "Scottish",
+    "location": "Kingstowne, Nevada",
+    "price": 440
   },
   {
     "id": 13,
-    "name": "Kristina",
-    "picture": "images/golden-retriever.jpeg",
-    "age": 4,
-    "breed": "Golden Retriever",
-    "location": "Sultana, Massachusetts"
+    "name": "Kristine",
+    "picture": "images/sphynx.jpg",
+    "age": 12,
+    "breed": "Sphynx",
+    "location": "Sultana, Massachusetts",
+    "price": 289
   },
   {
     "id": 14,
     "name": "Ethel",
-    "picture": "images/golden-retriever.jpeg",
-    "age": 2,
-    "breed": "Golden Retriever",
-    "location": "Broadlands, Oregon"
+    "picture": "images/vibe.jpg",
+    "age": 21,
+    "breed": "Vibing Cat",
+    "location": "Broadlands, Oregon",
+    "price": 189
   },
   {
     "id": 15,
-    "name": "Terry",
-    "picture": "images/golden-retriever.jpeg",
-    "age": 2,
-    "breed": "Golden Retriever",
-    "location": "Dawn, Wisconsin"
+    "name": "Poppy",
+    "picture": "images/popcat.jpg",
+    "age": 3,
+    "breed": "Pop Cat",
+    "location": "Matheny, Utah",
+    "price": 235
   }
 ]
