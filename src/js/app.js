@@ -2,27 +2,6 @@ App = {
   web3Provider: null,
   contracts: {},
 
-  init: async function () {
-    // Load pets.
-    $.getJSON("../pets.json", function (data) {
-      var petsRow = $("#petsRow");
-      var petTemplate = $("#petTemplate");
-
-      for (i = 0; i < data.length; i++) {
-        petTemplate.find(".panel-title").text(data[i].name);
-        petTemplate.find("img").attr("src", data[i].picture);
-        petTemplate.find(".pet-breed").text(data[i].breed);
-        petTemplate.find(".pet-age").text(data[i].age);
-        petTemplate.find(".pet-location").text(data[i].location);
-        petTemplate.find(".btn-adopt").attr("data-id", data[i].id);
-
-        petsRow.append(petTemplate.html());
-      }
-    });
-
-    return await App.initWeb3();
-  },
-
   initWeb3: async function () {
     // Modern dapp browsers...
     if (window.ethereum) {
@@ -47,6 +26,82 @@ App = {
     }
     web3 = new Web3(App.web3Provider);
 
+    return App.init();
+  },
+  init: async function () {
+    // Load pets.
+    web3.eth.getAccounts(function (error, accounts) {
+      if (error) {
+        console.log(error);
+      }
+
+      var account = accounts[0];
+      App.contracts.Adoption.deployed()
+        .then(function (instance) {
+          adoptionInstance = instance;
+
+          return adoptionInstance.getAdopters.call();
+        })
+        .then(function (adopters) {
+          console.log("Before for loop");
+          for (i = 0; i < adopters.length; i++) {
+            
+            if (adopters[i] === "0x0000000000000000000000000000000000000000") {
+              $.getJSON("../pets.json", function (data) {
+                console.log(data[i]);
+                var petsRow = $("#petsRow");
+                var petTemplate = $("#petTemplate");
+
+                  petTemplate.find(".panel-title").text(data[i].name);
+                  petTemplate.find("img").attr("src", data[i].picture);
+                  petTemplate.find(".pet-breed").text(data[i].breed);
+                  petTemplate.find(".pet-age").text(data[i].age);
+                  petTemplate.find(".pet-location").text(data[i].location);
+                  petTemplate.find(".btn-adopt").attr("data-id", data[i].id);
+
+                  petsRow.append(petTemplate.html());
+              });
+            } else if (adopters[i] === account) {
+              $.getJSON("../pets.json", function (data) {
+                var inventoryRow = $("#inventoryRow");
+                var petTemplate = $("#petTemplate");
+
+                  petTemplate.find(".panel-title").text(data[i].name);
+                  petTemplate.find("img").attr("src", data[i].picture);
+                  petTemplate.find(".pet-breed").text(data[i].breed);
+                  petTemplate.find(".pet-age").text(data[i].age);
+                  petTemplate.find(".pet-location").text(data[i].location);
+                  petTemplate.find(".btn-adopt").attr("data-id", data[i].id);
+
+                  inventoryRow.append(petTemplate.html());
+              });
+            }
+          }
+        });
+    });
+
+    /*$.getJSON("../pets.json", function (data) {
+        var petsRow = $("#petsRow");
+        var inventoryRow = $("#inventoryRow");
+        var petTemplate = $("#petTemplate");
+  
+        for (i = 0; i < data.length; i++) {
+          petTemplate.find(".panel-title").text(data[i].name);
+          petTemplate.find("img").attr("src", data[i].picture);
+          petTemplate.find(".pet-breed").text(data[i].breed);
+          petTemplate.find(".pet-age").text(data[i].age);
+          petTemplate.find(".pet-location").text(data[i].location);
+          petTemplate.find(".btn-adopt").attr("data-id", data[i].id);
+          if(){
+            petsRow.append(petTemplate.html());
+          }else{
+            inventoryRow.append(petTemplate.html());
+          }
+          
+        }
+      });*/
+
+    //return await App.initWeb3();
     return App.initContract();
   },
 
@@ -54,6 +109,7 @@ App = {
     $.getJSON("Adoption.json", function (data) {
       // Get the necessary contract artifact file and instantiate it with @truffle/contract
       var AdoptionArtifact = data;
+
       App.contracts.Adoption = TruffleContract(AdoptionArtifact);
 
       // Set the provider for our contract
@@ -97,7 +153,6 @@ App = {
 
   handleAdopt: function (event) {
     event.preventDefault();
-    console.log("Hi")
     var petId = parseInt($(event.target).data("id"));
 
     var adoptionInstance;
@@ -129,6 +184,6 @@ App = {
 
 $(function () {
   $(window).load(function () {
-    App.init();
+    App.initWeb3();
   });
 });
