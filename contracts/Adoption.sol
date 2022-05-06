@@ -12,6 +12,12 @@ contract Adoption {
         return petId;
     }
 
+    function remove(uint petId) public returns (address[16] memory) {
+        require(petId >= 0 && petId <= 15);
+        adopters[petId] = address(0);
+        return adopters;
+    }
+
     // Retrieving the adopters
     function getAdopters() public view returns (address[16] memory) {
         return adopters;

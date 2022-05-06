@@ -2,25 +2,54 @@ App = {
   web3Provider: null,
   contracts: {},
 
-  init: async function () {
+  init: async function (adopters) {
+    console.log(adopters);
+
     // Load pets.
     $.getJSON("../pets.json", function (data) {
       var petsRow = $("#petsRow");
       var petTemplate = $("#petTemplate");
+      var inventoryRow = $("#inventoryRow");
+      web3.eth.getAccounts(function (err, accounts) {
+        var account = accounts[0];
 
-      for (i = 0; i < data.length; i++) {
-        petTemplate.find(".panel-title").text(data[i].name);
-        petTemplate.find("img").attr("src", data[i].picture);
-        petTemplate.find(".pet-breed").text(data[i].breed);
-        petTemplate.find(".pet-age").text(data[i].age);
-        petTemplate.find(".pet-location").text(data[i].location);
-        petTemplate.find(".btn-adopt").attr("data-id", data[i].id);
+        for (i = 0; i < data.length; i++) {
+          if (parseInt(adopters[i]) === 0) {
+            petTemplate.find(".panel-title").text(data[i].name);
+            petTemplate.find("img").attr("src", data[i].picture);
+            petTemplate.find(".pet-breed").text(data[i].breed);
+            petTemplate.find(".pet-age").text(data[i].age);
+            petTemplate.find(".pet-location").text(data[i].location);
+            petTemplate
+              .find(".btn")
+              .attr("data-id", data[i].id)
+              .removeClass("btn-remove")
+              .addClass("btn-adopt")
+              .text("Adopt")
+              .attr("disabled", false)
+              .attr("id", data[i].id);
 
-        petsRow.append(petTemplate.html());
-      }
+            petsRow.append(petTemplate.html());
+          } else if (String(adopters[i]) === String(account)) {
+            petTemplate.find(".panel-title").text(data[i].name);
+            petTemplate.find("img").attr("src", data[i].picture);
+            petTemplate.find(".pet-breed").text(data[i].breed);
+            petTemplate.find(".pet-age").text(data[i].age);
+            petTemplate.find(".pet-location").text(data[i].location);
+            petTemplate
+              .find(".btn")
+              .attr("data-id", data[i].id)
+              .removeClass("btn-adopt")
+              .addClass("btn-remove")
+              .text("Remove")
+              .attr("disabled", false)
+              .attr("id", data[i].id);
+
+            inventoryRow.append(petTemplate.html());
+          }
+        }
+      });
     });
-
-    return await App.initWeb3();
   },
 
   initWeb3: async function () {
@@ -68,6 +97,7 @@ App = {
 
   bindEvents: function () {
     $(document).on("click", ".btn-adopt", App.handleAdopt);
+    $(document).on("click", ".btn-remove", App.handleRemove);
   },
 
   markAdopted: function () {
@@ -80,15 +110,7 @@ App = {
         return adoptionInstance.getAdopters.call();
       })
       .then(function (adopters) {
-        for (i = 0; i < adopters.length; i++) {
-          if (adopters[i] !== "0x0000000000000000000000000000000000000000") {
-            $(".panel-pet")
-              .eq(i)
-              .find("button")
-              .text("Success")
-              .attr("disabled", true);
-          }
-        }
+        App.init(adopters);
       })
       .catch(function (err) {
         console.log(err.message);
@@ -97,7 +119,6 @@ App = {
 
   handleAdopt: function (event) {
     event.preventDefault();
-    console.log("Hi")
     var petId = parseInt($(event.target).data("id"));
 
     var adoptionInstance;
@@ -114,10 +135,52 @@ App = {
           adoptionInstance = instance;
 
           // Execute adopt as a transaction by sending account
-          return adoptionInstance.adopt(petId, { from: account });
+          return adoptionInstance
+            .adopt(petId, { from: account, gas: 50000 })
+            .then(function (result) {
+              console.log(result);
+            });
         })
         .then(function (result) {
+          location.reload();
           console.log(result);
+          //console.log("pass");
+          return App.markAdopted();
+        })
+        .catch(function (err) {
+          console.log(err.message);
+        });
+    });
+  },
+
+  handleRemove: function (event) {
+    event.preventDefault();
+    var petId = parseInt($(event.target).data("id"));
+
+    var adoptionInstance;
+
+    web3.eth.getAccounts(function (error, accounts) {
+      if (error) {
+        console.log(error);
+      }
+
+      var account = accounts[0];
+
+      App.contracts.Adoption.deployed()
+        .then(function (instance) {
+          adoptionInstance = instance;
+
+          // Execute adopt as a transaction by sending account
+          return adoptionInstance
+            .remove(petId, { from: account, gas: 50000 })
+            .then(function (result) {
+              console.log(result);
+            });
+        })
+        .then(function (result) {
+          location.reload();
+          console.log(result);
+          //console.log("pass");
           return App.markAdopted();
         })
         .catch(function (err) {
@@ -129,6 +192,6 @@ App = {
 
 $(function () {
   $(window).load(function () {
-    App.init();
+    App.initWeb3();
   });
 });
