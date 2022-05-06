@@ -9,7 +9,7 @@ App = {
     $.getJSON("../pets.json", function (data) {
       var petsRow = $("#petsRow");
       var petTemplate = $("#petTemplate");
-      var inventoryRow = $("#inventoryRow");
+      var myCatRow = $("#myCatRow");
       web3.eth.getAccounts(function (err, accounts) {
         var account = accounts[0];
 
@@ -45,7 +45,7 @@ App = {
               .attr("disabled", false)
               .attr("id", data[i].id);
 
-            inventoryRow.append(petTemplate.html());
+            myCatRow.append(petTemplate.html());
           }
         }
       });
